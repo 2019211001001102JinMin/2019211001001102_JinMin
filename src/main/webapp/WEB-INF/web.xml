@@ -3,16 +3,32 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-    <!--add code about new servlet-->
+    <!--tell to tomcat about HelloWorldServlet-->
     <servlet>
         <servlet-name>anyName</servlet-name><!-- give any name -->
         <servlet-class>com.JinMin.week2.demo.HelloWordServlet</servlet-class><!--package +name of servlet class -->
     </servlet>
+    <servlet>
+        <servlet-name>LifeCycleServlet</servlet-name>
+        <servlet-class>com.JinMin.week3.demo.LifeCycleServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
-        <servlet-name>anyName</servlet-name>
-        <url-pattern>/hello</url-pattern><!-- url must start with / -->
+    <servlet-name>anyName</servlet-name>
+    <url-pattern>/hello</url-pattern><!-- url always start with / -->
+    </servlet-mapping >
+    <!--automatic code-->
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.JinMin.week3.demo.RegisterServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LifeCycleServlet</servlet-name>
+        <url-pattern>/life</url-pattern>
     </servlet-mapping>
-    <!-- x=5 ,x= a so we can say a=5
-    so /hello ==com.JinMin.week2.demo.HelloWorldServlet
-    -->
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern><!--writer this url in action-->
+    </servlet-mapping>
+
 </web-app>
