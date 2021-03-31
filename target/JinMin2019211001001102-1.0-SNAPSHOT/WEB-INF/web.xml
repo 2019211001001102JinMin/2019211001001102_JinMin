@@ -4,28 +4,44 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <!--tell to tomcat about HelloWorldServlet-->
-    <servlet>
-        <servlet-name>anyName</servlet-name><!-- give any name -->
-        <servlet-class>com.JinMin.week2.demo.HelloWordServlet</servlet-class><!--package +name of servlet class -->
-    </servlet>
-    <servlet>
-        <servlet-name>LifeCycleServlet</servlet-name>
-        <servlet-class>com.JinMin.week3.demo.LifeCycleServlet</servlet-class>
+
+    <context-param>
+        <param-name>driver</param-name>
+        <param-value>com.microsoft.sqlserver.jdbc.SQLServerDriver</param-value>
+    </context-param>
+    <context-param>
+        <param-name>url</param-name>
+        <param-value>jdbc:sqlserver://localhost;databaseName=userdb;</param-value>
+    </context-param>
+    <context-param>
+        <param-name>username</param-name>
+        <param-value>sa</param-value>
+    </context-param>
+    <context-param>
+        <param-name>password</param-name>
+        <param-value>admin123456789</param-value>
+    </context-param>
+   <servlet>
+        <servlet-name>ConfigDemoServlet</servlet-name>
+        <servlet-class>com.JinMin.week4.demo.ConfigDemoServlet</servlet-class>
+       <init-param>
+           <param-name>name</param-name>
+           <param-value>JinMin</param-value>
+       </init-param>
+       <init-param>
+           <param-name>studentId</param-name>
+           <param-value>2019211001001102</param-value>
+       </init-param>
     </servlet>
     <servlet-mapping>
-    <servlet-name>anyName</servlet-name>
-    <url-pattern>/hello</url-pattern><!-- url always start with / -->
-    </servlet-mapping >
-    <!--automatic code-->
+        <servlet-name>ConfigDemoServlet</servlet-name>
+        <url-pattern>/config</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>com.JinMin.week3.demo.RegisterServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
-
-    <servlet-mapping>
-        <servlet-name>LifeCycleServlet</servlet-name>
-        <url-pattern>/life</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern><!--writer this url in action-->
