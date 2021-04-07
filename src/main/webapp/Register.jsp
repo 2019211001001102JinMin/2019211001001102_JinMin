@@ -5,14 +5,10 @@
   Time: 10:18
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Register</title>
-</head>
-<body>
+<%@include file="header.jsp"%>
+
 <form method="post" action="register"><!-- within doPost() in servlet-->
-    <font>New User Registration!</font><br/><br/>
+    <font>This is my register JSP page.</font><br/><br/>
     id<input type="text" name="id"/><br/>
     username<input type="text" name="username"/><br/>
     password<input type="password" name="password"/><br/>
@@ -22,5 +18,4 @@
     <input type="submit" value="Register" />
 
 </form>
-</body>
-</html>
+<%@include file="footer.jsp"%>
