@@ -14,6 +14,19 @@
 </html>
 -->
 <%@include file="header.jsp"%>
+
+<h2>Welcome to My Online Shop Home Page.</h2>
+<form method="get" targer='_black' action="search"></form>
+<input type="text" name="txt" size=30/>
+<select name="search">
+    <option value="baidu">Baidu</option>
+    <option value="bing">Bing</option>
+    <option value="google">Google</option>
+</select>
+<input type="submit" value="Search"/>
+</form>
+<br/>
+
 <a href="hello-servlet">Hello Servlet-week1</a>
 <br/>
 <a href="Register.jsp">Register Servlet-week3</a>
@@ -30,4 +43,6 @@
 <br/>
 <a href="login.jsp">Login-week5</a>
 <br/>
+
+
 <%@include file="footer.jsp"%>

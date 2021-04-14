@@ -17,7 +17,8 @@ public class RegisterServlet extends HttpServlet {
     Connection con=null;
 
     @Override
-    public void init() {
+    public void init() throws ServletException {
+        super.init();
         try {
             Class.forName(getServletConfig().getServletContext().getInitParameter("driver"));
             con = DriverManager.getConnection(getServletConfig().getServletContext().getInitParameter("url"), getServletConfig().getServletContext().getInitParameter("username"), getServletConfig().getServletContext().getInitParameter("password"));
@@ -26,11 +27,15 @@ public class RegisterServlet extends HttpServlet {
             System.out.println(e);
         }
 
+
+
+        con=(Connection)  getServletContext().getAttribute("con") ;
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doPost(request, response);
     }
 
     @Override
@@ -41,17 +46,20 @@ public class RegisterServlet extends HttpServlet {
         String email = request.getParameter("email");
         String gender = request.getParameter("gender");
         String birthdate = request.getParameter("birthdate");
-        PrintWriter writer = response.getWriter();
-        writer.println("<table border=\"1\">"+"<tr>"+"<td>id</td>"+"<td>username</td>"+"<td>password</td>"+"<td>email</td>"+"<td>gender</td>"+"<td>birthdate</td>"+"</tr>");
+        //PrintWriter writer = response.getWriter();
+        //writer.println("<table border=\"1\">"+"<tr>"+"<td>id</td>"+"<td>username</td>"+"<td>password</td>"+"<td>email</td>"+"<td>gender</td>"+"<td>birthdate</td>"+"</tr>");
 
 
         try {
-            Statement createDbStatement = con.createStatement();
-            String insertRequire = "insert into usertable(id,username,password,email,gender,birthdate) values('"+id+"','" + username + "','" + password + "','" + email + "','" + gender + "','" + birthdate + "')";
-            createDbStatement.executeUpdate(insertRequire);
-            String sql = "select * from usertable";
-            ResultSet rs = createDbStatement.executeQuery(sql);
-            while (rs.next()) {
+            Statement st = con.createStatement();
+            String sql = "insert into usertable(username,password,email,gender,birthdate) values('" + username + "','" + password + "','" + email + "','" + gender + "','" + birthdate + "')";
+            System.out.println("sql"+sql);
+            int n=st.executeUpdate(sql);
+
+            st.executeUpdate(sql);
+            //String sql = "select * from usertable";
+           // ResultSet rs = createDbStatement.executeQuery(sql);
+            /*while (rs.next()) {
                 id = rs.getString("id");
                 username = rs.getString("username");
                 password = rs.getString("password");
@@ -59,15 +67,22 @@ public class RegisterServlet extends HttpServlet {
                 gender = rs.getString("gender");
                 birthdate = rs.getString("birthdate");
 
-            }
+            }*/
+
+            //request.setAttribute("rsname",rs) ;
+
+           // request.getRequestDispatcher("userList.jsp").forward(request,response);
+            //System.out.println("i am in RegisterServlet-->doPost()--> after forward()");
+
         } catch (Exception e) {
             System.out.println(e);
         }
-        writer.println("<td>" + id + "</td>" + "<td>" + username + "</td>" + "<td>" + password + "</td>" + "<td>" + email + "</td>" + "<td>" + gender + "</td>" + "<td>" + birthdate + "</td>" + "</tr>");
+        response.sendRedirect("login.jsp");
+        //writer.println("<td>" + id + "</td>" + "<td>" + username + "</td>" + "<td>" + password + "</td>" + "<td>" + email + "</td>" + "<td>" + gender + "</td>" + "<td>" + birthdate + "</td>" + "</tr>");
 
 
     }
-    @Override
+    /*@Override
     public void destroy() {
         super.destroy();
         try {
@@ -75,5 +90,5 @@ public class RegisterServlet extends HttpServlet {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }
+    }*/
 }
