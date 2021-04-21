@@ -54,6 +54,14 @@
         <servlet-name>RedirectServlet</servlet-name>
         <servlet-class>com.JinMin.week6.demo.RedirectServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>com.JinMin.controller.HomeServlet</servlet-class>
+    </servlet>
+    <welcome-file-list>
+        <welcome-file >home</welcome-file>
+
+    </welcome-file-list>
     <servlet-mapping>
         <servlet-name>RedirectServlet</servlet-name>
         <url-pattern>/redirect</url-pattern>
