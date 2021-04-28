@@ -39,19 +39,44 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         UserDao userDao=new UserDao() ;
+        User user=null;
         try {
-            User user=userDao.findByUsernamePassword(con,username,password) ;
-            if(user!=null){
-                request.setAttribute("user",user) ;
-                request.getRequestDispatcher("WEB-INF/views/userInfo.jsp") .forward(request,response ) ;
+            user = userDao.findByUsernamePassword(con, username, password);
+        }catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+        if(user!=null){
+
+            /*Cookie c=new Cookie("sessionid",""+user.getId() ) ;
+            c.setMaxAge(10*60) ;
+            response.addCookie(c) ;*/
+
+            String rememberMe=request.getParameter("rememberMe") ;
+            if(rememberMe!=null && rememberMe.equals("1") ){
+                Cookie usernameCookie=new Cookie("cUsername",user.getUsername() );
+                Cookie passwordCookie=new Cookie("cPassword",user.getPassword() );
+                Cookie rememberMeCookie=new Cookie("cRememberMe",rememberMe );
+                usernameCookie.setMaxAge(5) ;
+                passwordCookie.setMaxAge(5) ;
+                rememberMeCookie.setMaxAge(5) ;
+                response.addCookie(usernameCookie ) ;
+                response.addCookie(passwordCookie ) ;
+                response.addCookie(rememberMeCookie ) ;
+
+            }
+            HttpSession session = request.getSession();
+            System.out.println("session id-->"+session.getId()) ;
+            session.setMaxInactiveInterval(10) ;
+
+            session.setAttribute("user",user) ;
+            request.getRequestDispatcher("WEB-INF/views/userInfo.jsp") .forward(request,response ) ;
             }else{
                 request.setAttribute("message","Username or Password Error!!!") ;
                 request.getRequestDispatcher("WEB-INF/views/login.jsp").forward(request ,response ) ;
 
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
 
         /*
         String sql = "select id,username,password,email,gender,birthdate from  Usertable where username = ? and password = ?";

@@ -57,9 +57,7 @@ public class UserDao implements IUserDao {
             st.setString(5, String.valueOf(new java.sql.Date(user.getBirthdate().getTime())));
             st.setInt(6,user.getId());
             int i= st.executeUpdate();
-            if(i>0){
-                return 1;
-            }
+            return i;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,6 +89,7 @@ public class UserDao implements IUserDao {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
 
         return null;
     }

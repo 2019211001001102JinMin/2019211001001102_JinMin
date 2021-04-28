@@ -13,12 +13,33 @@
         out.println(request.getAttribute("message") );
     }
 %>
+<%
+    Cookie[] allCookies= request.getCookies() ;
+    String username="",password="",rememberMeVal="";
+    if(allCookies!=null){
+        for (Cookie c:allCookies ){
+            if(c.getName().equals("cUsername") ){
 
+                username =c.getValue() ;
+            }
+            if(c.getName().equals("cpassword") ){
+
+                password =c.getValue() ;
+            }
+            if(c.getName().equals("cRememberMe") ){
+
+                rememberMeVal  =c.getValue() ;
+            }
+        }
+    }
+%>
 
 <form method="post" action="login"><!-- within doPost() in servlet-->
 
-    username: <input type="text" name="username"/><br/>
-    password: <input type="password" name="password"/><br/>
+    username: <input type="text" name="username" value="<%=username%>"/><br/>
+    password: <input type="password" name="password"value="<%=password%>"/><br/>
+    <input type="checkbox" name="rememberMe" value="1" <%=rememberMeVal.equals("1") ?"checked":""%>checked/>RememberMe<br/>
+
     <input type="submit" value="Login" />
 
 </form>

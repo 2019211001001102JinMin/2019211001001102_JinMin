@@ -58,6 +58,14 @@
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>com.JinMin.controller.HomeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>com.JinMin.controller.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateUserServlet</servlet-name>
+        <servlet-class>com.JinMin.controller.UpdateUserServlet</servlet-class>
+    </servlet>
     <welcome-file-list>
         <welcome-file >home</welcome-file>
 
