@@ -35,7 +35,7 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
+        request.getRequestDispatcher("WEB-INF/views/Register.jsp").forward(request, response) ;
     }
 
     @Override
@@ -74,6 +74,7 @@ public class RegisterServlet extends HttpServlet {
            // request.getRequestDispatcher("userList.jsp").forward(request,response);
             //System.out.println("i am in RegisterServlet-->doPost()--> after forward()");
 
+            response.sendRedirect("login") ;
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -82,7 +83,7 @@ public class RegisterServlet extends HttpServlet {
 
 
     }
-    /*@Override
+    @Override
     public void destroy() {
         super.destroy();
         try {
@@ -90,5 +91,5 @@ public class RegisterServlet extends HttpServlet {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-    }*/
+    }
 }

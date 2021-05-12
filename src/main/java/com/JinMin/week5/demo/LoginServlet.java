@@ -53,11 +53,11 @@ public class LoginServlet extends HttpServlet {
             c.setMaxAge(10*60) ;
             response.addCookie(c) ;*/
 
-            String rememberMe=request.getParameter("rememberMe") ;
+            String rememberMe=request.getParameter("remember") ;
             if(rememberMe!=null && rememberMe.equals("1") ){
                 Cookie usernameCookie=new Cookie("cUsername",user.getUsername() );
                 Cookie passwordCookie=new Cookie("cPassword",user.getPassword() );
-                Cookie rememberMeCookie=new Cookie("cRememberMe",rememberMe );
+                Cookie rememberMeCookie=new Cookie("cRememberMe",request.getParameter("remember") );
                 usernameCookie.setMaxAge(5) ;
                 passwordCookie.setMaxAge(5) ;
                 rememberMeCookie.setMaxAge(5) ;
