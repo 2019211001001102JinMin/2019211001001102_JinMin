@@ -3,6 +3,7 @@ package com.JinMin.dao;
 import com.JinMin.model.User;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,16 +14,16 @@ public class UserDao implements IUserDao {
             String sql = "insert into usertable(username,password,email,gender,birthdate) values (?,?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
             Statement createDbStatement = con.createStatement();
-            st.setString(1,user.getUsername());
-            st.setString(2,user.getPassword() );
-            st.setString(3,user.getEmail() );
-            st.setString(4,user.getGender() ) ;
+            st.setString(1, user.getUsername());
+            st.setString(2, user.getPassword());
+            st.setString(3, user.getEmail());
+            st.setString(4, user.getGender());
             st.setString(5, String.valueOf(new java.sql.Date(user.getBirthdate().getTime())));
-            int i=st.executeUpdate() ;
-            if(i>0){
+            int i = st.executeUpdate();
+            if (i > 0) {
                 return true;
             }
-            } catch (SQLException throwables) {
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
@@ -33,10 +34,10 @@ public class UserDao implements IUserDao {
     public int deleteUser(Connection con, User user) throws SQLException {
         try {
             String sql = "delete from usertable where id=?";
-            PreparedStatement st= con.prepareStatement(sql);
-            st.setInt(1,user.getId() );
-            int i= st.executeUpdate();
-            if(i>0){
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, user.getId());
+            int i = st.executeUpdate();
+            if (i > 0) {
                 return 1;
             }
         } catch (Exception e) {
@@ -47,16 +48,16 @@ public class UserDao implements IUserDao {
 
     @Override
     public int updateUser(Connection con, User user) throws SQLException {
-        try{
-            String sql="update usertable set username=?,password=?,email=?,gender=?,birthdate=? where id=?";
-            PreparedStatement st= con.prepareStatement(sql);
-            st.setString(1,user.getUsername() );
-            st.setString(2,user.getPassword() ) ;
-            st.setString(3,user.getEmail() );
+        try {
+            String sql = "update usertable set username=?,password=?,email=?,gender=?,birthdate=? where id=?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, user.getUsername());
+            st.setString(2, user.getPassword());
+            st.setString(3, user.getEmail());
             st.setString(4, user.getGender());
             st.setString(5, String.valueOf(new java.sql.Date(user.getBirthdate().getTime())));
-            st.setInt(6,user.getId());
-            int i= st.executeUpdate();
+            st.setInt(6, user.getId());
+            int i = st.executeUpdate();
             return i;
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,24 +68,25 @@ public class UserDao implements IUserDao {
 
     @Override
     public User findById(Connection con, Integer id) throws SQLException {
-        try{
-            String sql="select*from usertable where id=?";
-            PreparedStatement st=con.prepareStatement(sql) ;
-            st.setInt(1,id);
-            Statement createDbStatement=con.createStatement() ;
+        try {
+            String sql = "select * from usertable where id=?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, id);
+            Statement createDbStatement = con.createStatement();
             ResultSet rs = createDbStatement.executeQuery(sql);
-            User user=null;
-            if(rs.next() ){
+            User user = null;
+            if (rs.next()) {
 
-                user=new User();
+                user = new User();
                 user.setId(rs.getInt("id"));
-                user.setUsername(rs.getString("username")) ;
-                user.setPassword(rs.getString("password")) ;
-                user.setEmail(rs.getString("email") ) ;
-                user.setGender(rs.getString("gender")) ;
-                user.setBirthdate(rs.getDate("birthdate") ) ;
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setEmail(rs.getString("email"));
+                user.setGender(rs.getString("gender"));
+                user.setBirthdate(rs.getDate("birthdate"));
             }
 
+            return user;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -93,6 +95,8 @@ public class UserDao implements IUserDao {
 
         return null;
     }
+
+
 
     @Override
     public User findByUsernamePassword(Connection con, String username, String password) throws SQLException {
@@ -125,6 +129,7 @@ public class UserDao implements IUserDao {
         st.setString(1,username);
         ResultSet rs=st.executeQuery() ;
         User user=null;
+        List<User> userList=new ArrayList<User>();
         if(rs.next() ){
 
             user=new User();
@@ -134,9 +139,10 @@ public class UserDao implements IUserDao {
             user.setEmail(rs.getString("email") ) ;
             user.setGender(rs.getString("gender")) ;
             user.setBirthdate(rs.getDate("birthdate") ) ;
+            userList.add(user);
         }
 
-        return (List<User>) user;
+        return userList;
     }
 
     @Override
@@ -147,6 +153,7 @@ public class UserDao implements IUserDao {
         st.setString(1,password) ;
         ResultSet rs=st.executeQuery() ;
         User user=null;
+        List<User> userList=new ArrayList<User>();
         if(rs.next() ){
 
             user=new User();
@@ -156,9 +163,10 @@ public class UserDao implements IUserDao {
             user.setEmail(rs.getString("email") ) ;
             user.setGender(rs.getString("gender")) ;
             user.setBirthdate(rs.getDate("birthdate") ) ;
+            userList.add(user);
         }
 
-        return (List<User>) user;
+        return userList;
 
     }
 
@@ -171,6 +179,7 @@ public class UserDao implements IUserDao {
 
         ResultSet rs=st.executeQuery() ;
         User user=null;
+        List<User> userList=new ArrayList<User>();
         if(rs.next() ){
 
             user=new User();
@@ -180,9 +189,10 @@ public class UserDao implements IUserDao {
             user.setEmail(rs.getString("email") ) ;
             user.setGender(rs.getString("gender")) ;
             user.setBirthdate(rs.getDate("birthdate") ) ;
+            userList.add(user);
         }
 
-        return (List<User>) user;
+        return userList;
 
     }
 
@@ -195,6 +205,7 @@ public class UserDao implements IUserDao {
 
         ResultSet rs=st.executeQuery() ;
         User user=null;
+        List<User> userList=new ArrayList<User>();
         if(rs.next() ){
 
             user=new User();
@@ -204,9 +215,10 @@ public class UserDao implements IUserDao {
             user.setEmail(rs.getString("email") ) ;
             user.setGender(rs.getString("gender")) ;
             user.setBirthdate(rs.getDate("birthdate") ) ;
+            userList.add(user);
         }
 
-        return (List<User>) user;
+        return userList;
     }
 
     @Override
@@ -218,6 +230,7 @@ public class UserDao implements IUserDao {
 
         ResultSet rs=st.executeQuery() ;
         User user=null;
+        List<User> userList=new ArrayList<User>();
         if(rs.next() ){
 
             user=new User();
@@ -227,9 +240,10 @@ public class UserDao implements IUserDao {
             user.setEmail(rs.getString("email") ) ;
             user.setGender(rs.getString("gender")) ;
             user.setBirthdate(rs.getDate("birthdate") ) ;
+            userList.add(user);
         }
 
-        return (List<User>) user;
+        return userList;
     }
 
     @Override
@@ -239,6 +253,7 @@ public class UserDao implements IUserDao {
         PreparedStatement st=con.prepareStatement(sql) ;
         ResultSet rs=st.executeQuery() ;
         User user=null;
+        List<User> userList=new ArrayList<User>();
         if(rs.next() ){
 
             user=new User();
@@ -248,8 +263,9 @@ public class UserDao implements IUserDao {
             user.setEmail(rs.getString("email") ) ;
             user.setGender(rs.getString("gender")) ;
             user.setBirthdate(rs.getDate("birthdate") ) ;
+            userList.add(user);
         }
 
-        return (List<User>) user;
+        return userList;
     }
 }

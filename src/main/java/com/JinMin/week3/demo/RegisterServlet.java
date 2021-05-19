@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet(name = "RegisterServlet", value = "/Register")
+@WebServlet(name = "RegisterServlet", value = "/register")
 
 public class RegisterServlet extends HttpServlet {
     Connection con=null;
@@ -35,7 +35,7 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("WEB-INF/views/Register.jsp").forward(request, response) ;
+        request.getRequestDispatcher("WEB-INF/views/register.jsp").forward(request, response) ;
     }
 
     @Override
@@ -78,7 +78,8 @@ public class RegisterServlet extends HttpServlet {
         } catch (Exception e) {
             System.out.println(e);
         }
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("WEB-INF/views/login.jsp");
+
         //writer.println("<td>" + id + "</td>" + "<td>" + username + "</td>" + "<td>" + password + "</td>" + "<td>" + email + "</td>" + "<td>" + gender + "</td>" + "<td>" + birthdate + "</td>" + "</tr>");
 
 

@@ -7,7 +7,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "AdminHomeServlet", value = "/AdminHomeServlet")
+@WebServlet(name = "AdminHomeServlet", value = "/admin/home")
 public class AdminHomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -16,7 +16,7 @@ public class AdminHomeServlet extends HttpServlet {
         if(session !=null && session.getAttribute("user")!=null){
             User user=(User)  session.getAttribute("user") ;
             if("admin".equals(user.getUsername() )){
-                request.getRequestDispatcher("../WEB-TNF/views/admin/index.jsp").forward(request,response) ;
+                request.getRequestDispatcher("../WEB-INF/views/admin/index.jsp").forward(request,response) ;
 
             }else{
                 session.invalidate();
