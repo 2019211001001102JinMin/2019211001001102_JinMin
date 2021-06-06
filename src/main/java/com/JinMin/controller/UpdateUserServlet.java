@@ -45,7 +45,7 @@ public class UpdateUserServlet extends HttpServlet {
             if(iUserDao.updateUser(con,u) !=0){
                 HttpSession session = request.getSession();
                 session.setAttribute("user",u) ;
-                request.getRequestDispatcher("WEB-INF/views/userInfo.jsp").forward(request,response) ;
+                request.getRequestDispatcher("accountDetails").forward(request,response) ;
             }else{
                 request.setAttribute("message","Username or Password Error!!!") ;
                 request.getRequestDispatcher("WEB-INF/views/updateUser.jsp").forward(request ,response ) ;

@@ -26,7 +26,7 @@ public class AdminAuthenticationFilter implements Filter {
         HttpSession session= httpRequest.getSession(false);
 
         boolean isLoggedIn=(session !=null && session.getAttribute("userList")!=null);
-        String loginURI=httpRequest.getContextPath() +"/admin/login";
+        String loginURI=httpRequest.getContextPath() +"/admin/home";
         boolean isLoginRequest = httpRequest.getRequestURI().equals(loginURI) ;
         boolean isLoginPage = httpRequest.getRequestURI().endsWith("login");
 
@@ -36,7 +36,7 @@ public class AdminAuthenticationFilter implements Filter {
         }else if (isLoggedIn || isLoginRequest){
             chain.doFilter(request,response);
         }else {
-            httpResponse.sendRedirect(httpRequest.getContextPath()+ "/admin/login");
+            httpResponse.sendRedirect(httpRequest.getContextPath()+ "/admin/home");
         }
     }
 
